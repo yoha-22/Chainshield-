@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChainShield — Alert Console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0A0E14;
+    --surface: #121821;
+    --surface-raised: #171F2B;
+    --border: #232C39;
+    --text-primary: #E4E7EB;
+    --text-secondary: #8792A2;
+    --text-muted: #5B6472;
+    --amber: #F5A623;
+    --amber-dim: #4A3A18;
+    --teal: #2DD4A7;
+    --teal-dim: #163B32;
+    --red: #FF5C5C;
+    --red-dim: #402022;
+  }
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  body{
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'IBM Plex Mono', monospace;
+    padding: 32px 24px 64px;
+    min-height: 100vh;
+  }
+  .wrap{ max-width: 880px; margin: 0 auto; }
+
+  header{ display:flex; align-items:center; justify-content:space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 12px; }
+  .brand{ display:flex; align-items:center; gap: 12px; }
+  .brand-mark{
+    width: 34px; height: 34px; border-radius: 8px;
+    background: var(--surface-raised); border: 1px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--teal); font-size: 15px;
+  }
+  h1{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 19px; letter-spacing: 0.2px; }
+  .subtitle{ color: var(--text-secondary); font-size: 12px; margin-top: 2px; }
+
+  .live-badge{
+    display:flex; align-items:center; gap:8px;
+    font-size: 11px; color: var(--teal); letter-spacing: 0.5px;
+    background: var(--teal-dim); border: 1px solid #1E5548;
+    padding: 6px 12px; border-radius: 20px;
+  }
+  .pulse-dot{
+    width: 7px; height: 7px; border-radius: 50%; background: var(--teal);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity: 1; box-shadow: 0 0 0 0 rgba(45,212,167,0.5); }
+    50%{ opacity: 0.6; box-shadow: 0 0 0 5px rgba(45,212,167,0); }
+  }
+
+  .stats{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 24px; }
+  .stat{
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .stat-label{ font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
+  .stat-value{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; }
+  .stat-value.teal{ color: var(--teal); }
+  .stat-value.amber{ color: var(--amber); }
+  .stat-value.red{ color: var(--red); }
+
+  section{ margin-bottom: 28px; }
+  .log-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom: 10px; }
+  .log-title{ font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; }
+  .refresh-note{ font-size: 11px; color: var(--text-muted); }
+
+  .log{ display:flex; flex-direction: column; gap: 8px; }
+  .entry{
+    background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--text-muted);
+    border-radius: 6px; padding: 12px 14px;
+  }
+  .entry.live-success{ border-left-color: var(--teal); }
+  .entry.mock{ border-left-color: var(--amber); }
+  .entry.failed{ border-left-color: var(--red); }
+  .entry.flagged{ border-left-color: var(--red); }
+  .entry.approved{ border-left-color: var(--teal); }
+
+  .entry-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom: 6px; flex-wrap: wrap; gap: 6px; }
+  .entry-meta{ display:flex; align-items:center; gap: 8px; font-size: 12px; }
+  .channel-tag{
+    font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 4px;
+  }
+  .channel-tag.sms{ background: #1B2430; color: var(--text-secondary); }
+  .channel-tag.email{ background: #1B2430; color: var(--text-secondary); }
+  .status-tag{ font-size: 10px; font-weight: 600; letter-spacing: 0.5px; padding: 2px 8px; border-radius: 4px; }
+  .status-tag.live-success{ background: var(--teal-dim); color: var(--teal); }
+  .status-tag.mock{ background: var(--amber-dim); color: var(--amber); }
+  .status-tag.failed{ background: var(--red-dim); color: var(--red); }
+  .status-tag.flagged{ background: var(--red-dim); color: var(--red); }
+  .status-tag.approved{ background: var(--teal-dim); color: var(--teal); }
+  .entry-time{ color: var(--text-muted); font-size: 11px; }
+  .entry-to{ color: var(--text-secondary); font-size: 12px; margin-bottom: 4px; }
+  .entry-body{ color: var(--text-primary); font-size: 12px; line-height: 1.6; word-break: break-word; }
+  .entry-note{ color: var(--text-muted); font-size: 11px; margin-top: 6px; font-style: italic; }
+
+  .reason-tags{ display:flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .reason-tag{
+    font-size: 10px; font-weight: 600; letter-spacing: 0.3px;
+    padding: 3px 9px; border-radius: 4px;
+    background: var(--amber-dim); color: var(--amber);
+    border: 1px solid #5A431C;
+  }
+  .txn-amount{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 15px; }
+  .ml-score{ color: var(--text-muted); font-size: 11px; }
+
+  .empty{ text-align:center; padding: 48px 20px; color: var(--text-muted); font-size: 13px; }
+  .error{ text-align:center; padding: 20px; color: var(--red); font-size: 12px; background: var(--red-dim); border-radius: 6px; }
+
+  @media (max-width: 600px){
+    .stats{ grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="brand-mark">CS</div>
+      <div>
+        <h1>ChainShield alert console</h1>
+        <div class="subtitle">Fraud alert delivery log</div>
+      </div>
+    </div>
+    <div class="live-badge"><span class="pulse-dot"></span>monitoring active</div>
+  </header>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-label">Total alerts</div>
+      <div class="stat-value" id="stat-total">—</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Live sent</div>
+      <div class="stat-value teal" id="stat-live">—</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Simulated (SMS)</div>
+      <div class="stat-value amber" id="stat-mock">—</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Failed</div>
+      <div class="stat-value red" id="stat-failed">—</div>
+    </div>
+  </div>
+
+  <section>
+    <div class="log-header">
+      <div class="log-title">Flagged transactions (threshold + ML)</div>
+      <div class="refresh-note" id="txn-refresh-note">Auto-refreshing every 5s</div>
+    </div>
+    <div class="log" id="txn-log">
+      <div class="empty">Loading transactions…</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="log-header">
+      <div class="log-title">Recent alerts</div>
+      <div class="refresh-note" id="refresh-note">Auto-refreshing every 5s</div>
+    </div>
+    <div class="log" id="log">
+      <div class="empty">Loading alert history…</div>
+    </div>
+  </section>
+</div>
+
+<script>
+  const ALERTS_URL = '/api/alerts';
+  const TRANSACTIONS_URL = '/api/transactions';
+
+  // ---------- Alert history rendering (unchanged) ----------
+  function statusClass(item){
+    if (item.success === false) return 'failed';
+    if (item.mode === 'mock') return 'mock';
+    return 'live-success';
+  }
+
+  function statusLabel(item){
+    if (item.success === false) return 'failed';
+    if (item.mode === 'mock') return 'simulated';
+    return 'sent';
+  }
+
+  function formatTime(ts){
+    try{
+      const d = new Date(ts);
+      return d.toLocaleString();
+    }catch(e){
+      return ts;
+    }
+  }
+
+  function renderAlerts(history){
+    const log = document.getElementById('log');
+    if (!Array.isArray(history) || history.length === 0){
+      log.innerHTML = '<div class="empty">No alerts logged yet. Trigger a test alert to see it here.</div>';
+    } else {
+      const sorted = [...history].reverse();
+      log.innerHTML = sorted.map(item => {
+        const cls = statusClass(item);
+        const label = statusLabel(item);
+        const bodyText = item.body || item.error || item.messageId || '';
+        return `
+          <div class="entry ${cls}">
+            <div class="entry-top">
+              <div class="entry-meta">
+                <span class="channel-tag ${item.channel}">${(item.channel || '').toUpperCase()}</span>
+                <span class="status-tag ${cls}">${label}</span>
+              </div>
+              <span class="entry-time">${formatTime(item.timestamp)}</span>
+            </div>
+            <div class="entry-to">to ${item.to || '—'}</div>
+            <div class="entry-body">${bodyText}</div>
+            ${item.note ? `<div class="entry-note">${item.note}</div>` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    const total = history.length;
+    const live = history.filter(i => i.mode !== 'mock' && i.success).length;
+    const mock = history.filter(i => i.mode === 'mock').length;
+    const failed = history.filter(i => i.success === false).length;
+
+    document.getElementById('stat-total').textContent = total;
+    document.getElementById('stat-live').textContent = live;
+    document.getElementById('stat-mock').textContent = mock;
+    document.getElementById('stat-failed').textContent = failed;
+  }
+
+  async function loadAlerts(){
+    try{
+      const res = await fetch(ALERTS_URL);
+      if (!res.ok) throw new Error('Request failed with status ' + res.status);
+      const data = await res.json();
+      renderAlerts(data);
+      document.getElementById('refresh-note').textContent = 'Auto-refreshing every 5s · last updated ' + new Date().toLocaleTimeString();
+    }catch(err){
+      document.getElementById('log').innerHTML = `<div class="error">Could not load alert history. Make sure the backend is running and /api/alerts is set up. (${err.message})</div>`;
+    }
+  }
+
+  // ---------- Flagged transactions rendering (new) ----------
+  function reasonLabel(reason){
+    const map = {
+      HIGH_AMOUNT: 'High amount',
+      HIGH_FRAUD_SCORE: 'High ML fraud score',
+      ODD_HOUR_ACTIVITY: 'Odd-hour activity',
+      ROUND_NUMBER_AMOUNT: 'Round-number amount',
+      VELOCITY_ANOMALY: 'Velocity anomaly',
+    };
+    return map[reason] || reason;
+  }
+
+  function renderTransactions(transactions){
+    const log = document.getElementById('txn-log');
+    if (!Array.isArray(transactions) || transactions.length === 0){
+      log.innerHTML = '<div class="empty">No transactions yet.</div>';
+      return;
+    }
+
+    // Show flagged ones first, then approved, most recent first within each group
+    const flagged = transactions.filter(t => t.status === 'flagged');
+    const approved = transactions.filter(t => t.status !== 'flagged');
+    const ordered = [...flagged, ...approved];
+
+    log.innerHTML = ordered.map(txn => {
+      const cls = txn.status === 'flagged' ? 'flagged' : 'approved';
+      const reasons = Array.isArray(txn.thresholdReasons) ? txn.thresholdReasons : [];
+      const mlFlag = txn.isFraud ? '<span class="reason-tag">ML: fraud</span>' : '';
+      return `
+        <div class="entry ${cls}">
+          <div class="entry-top">
+            <div class="entry-meta">
+              <span class="status-tag ${cls}">${txn.status}</span>
+              <span class="txn-amount">Rs.${txn.amount}</span>
+              <span class="ml-score">fraud score ${txn.fraudScore}</span>
+            </div>
+            <span class="entry-time">${formatTime(txn.createdAt)}</span>
+          </div>
+          <div class="entry-to">${txn.transactionId} · ${txn.senderPhone || txn.senderEmail || '—'}</div>
+          ${(reasons.length > 0 || mlFlag) ? `
+            <div class="reason-tags">
+              ${reasons.map(r => `<span class="reason-tag">${reasonLabel(r)}</span>`).join('')}
+              ${mlFlag}
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }).join('');
+  }
+
+  async function loadTransactions(){
+    try{
+      const res = await fetch(TRANSACTIONS_URL);
+      if (!res.ok) throw new Error('Request failed with status ' + res.status);
+      const data = await res.json();
+      renderTransactions(data);
+      document.getElementById('txn-refresh-note').textContent = 'Auto-refreshing every 5s · last updated ' + new Date().toLocaleTimeString();
+    }catch(err){
+      document.getElementById('txn-log').innerHTML = `<div class="error">Could not load transactions. Make sure /api/transactions is set up. (${err.message})</div>`;
+    }
+  }
+
+  loadAlerts();
+  loadTransactions();
+  setInterval(loadAlerts, 5000);
+  setInterval(loadTransactions, 5000);
+</script>
+</body>
+</html>

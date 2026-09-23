@@ -1,0 +1,445 @@
+
+:root {
+  --cs-bg: #0a0e14;
+  --cs-surface: #121821;
+  --cs-surface-raised: #171f2b;
+  --cs-border: #232c39;
+  --cs-text-primary: #e4e7eb;
+  --cs-text-secondary: #8792a2;
+  --cs-text-muted: #5b6472;
+
+  --cs-teal: #2dd4a7;
+  --cs-teal-dim: #163b32;
+  --cs-amber: #f5a623;
+  --cs-amber-dim: #4a3a18;
+  --cs-red: #ff5c5c;
+  --cs-red-dim: #402022;
+  --cs-violet: #8b7bff; /* signature accent for AI / intelligence surfaces */
+  --cs-violet-dim: #241f47;
+
+  --cs-font-display: "Space Grotesk", "IBM Plex Sans", system-ui, sans-serif;
+  --cs-font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --cs-font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+
+  --cs-radius-sm: 8px;
+  --cs-radius-md: 14px;
+  --cs-radius-lg: 20px;
+}
+
+.cs-root {
+  background: var(--cs-bg);
+  color: var(--cs-text-primary);
+  font-family: var(--cs-font-body);
+  min-height: 100vh;
+  position: relative;
+}
+
+.cs-page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 48px 32px 96px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Ambient background: faint moving grid + drifting nodes, very low opacity
+   so it reads as atmosphere, never competes with content. */
+.cs-ambient {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 20% -10%, rgba(45, 212, 167, 0.08), transparent 55%),
+    radial-gradient(ellipse at 90% 10%, rgba(139, 123, 255, 0.06), transparent 50%);
+}
+.cs-ambient::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background-image:
+    linear-gradient(rgba(228, 231, 235, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(228, 231, 235, 0.035) 1px, transparent 1px);
+  background-size: 42px 42px;
+  animation: cs-grid-drift 40s linear infinite;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 40%, transparent 90%);
+}
+
+@keyframes cs-grid-drift {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-42px, -42px); }
+}
+
+/* Eyebrow / label */
+.cs-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--cs-font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cs-teal);
+}
+.cs-eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cs-teal);
+  box-shadow: 0 0 0 4px var(--cs-teal-dim);
+}
+
+.cs-h1 {
+  font-family: var(--cs-font-display);
+  font-weight: 700;
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin: 12px 0 10px;
+}
+.cs-h2 {
+  font-family: var(--cs-font-display);
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  margin: 0 0 4px;
+}
+.cs-sub {
+  color: var(--cs-text-secondary);
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 560px;
+}
+
+/* Card — the base surface, with a hairline border and a scan-sweep
+   that plays once on entry rather than looping forever. */
+.cs-card {
+  background: var(--cs-surface-raised);
+  border: 1px solid var(--cs-border);
+  border-radius: var(--cs-radius-md);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  animation: cs-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.cs-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -30%;
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(45, 212, 167, 0.08), transparent);
+  animation: cs-sweep 1.4s ease-out 0.15s both;
+}
+.cs-card--violet::after {
+  background: linear-gradient(90deg, transparent, rgba(139, 123, 255, 0.1), transparent);
+}
+
+@keyframes cs-sweep {
+  to { left: 130%; }
+}
+@keyframes cs-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes cs-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.cs-stagger > * { animation: cs-rise 0.55s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.cs-stagger > *:nth-child(1) { animation-delay: 0.02s; }
+.cs-stagger > *:nth-child(2) { animation-delay: 0.08s; }
+.cs-stagger > *:nth-child(3) { animation-delay: 0.14s; }
+.cs-stagger > *:nth-child(4) { animation-delay: 0.2s; }
+.cs-stagger > *:nth-child(5) { animation-delay: 0.26s; }
+.cs-stagger > *:nth-child(6) { animation-delay: 0.32s; }
+
+/* Buttons */
+.cs-btn {
+  font-family: var(--cs-font-body);
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: var(--cs-radius-sm);
+  padding: 12px 22px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.cs-btn:active { transform: scale(0.97); }
+
+.cs-btn--primary {
+  background: linear-gradient(135deg, var(--cs-teal), #22a888);
+  color: #05130f;
+  box-shadow: 0 0 0 0 rgba(45, 212, 167, 0.5);
+}
+.cs-btn--primary:hover {
+  box-shadow: 0 6px 24px -6px rgba(45, 212, 167, 0.55);
+  transform: translateY(-1px);
+}
+
+.cs-btn--ghost {
+  background: transparent;
+  border-color: var(--cs-border);
+  color: var(--cs-text-primary);
+}
+.cs-btn--ghost:hover {
+  border-color: var(--cs-text-muted);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.cs-btn--violet {
+  background: linear-gradient(135deg, var(--cs-violet), #6a56e0);
+  color: #0c0920;
+}
+.cs-btn--violet:hover {
+  box-shadow: 0 6px 24px -6px rgba(139, 123, 255, 0.55);
+  transform: translateY(-1px);
+}
+
+.cs-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Inputs */
+.cs-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+.cs-label {
+  font-size: 12px;
+  font-family: var(--cs-font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cs-text-secondary);
+}
+.cs-input, .cs-select, .cs-textarea {
+  background: var(--cs-surface);
+  border: 1px solid var(--cs-border);
+  border-radius: var(--cs-radius-sm);
+  padding: 12px 14px;
+  color: var(--cs-text-primary);
+  font-size: 14px;
+  font-family: var(--cs-font-body);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  width: 100%;
+}
+.cs-input:focus, .cs-select:focus, .cs-textarea:focus {
+  border-color: var(--cs-teal);
+  box-shadow: 0 0 0 3px var(--cs-teal-dim);
+}
+.cs-input::placeholder { color: var(--cs-text-muted); }
+
+/* Badges */
+.cs-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-family: var(--cs-font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+.cs-badge--approved { background: var(--cs-teal-dim); color: var(--cs-teal); }
+.cs-badge--flagged { background: var(--cs-red-dim); color: var(--cs-red); }
+.cs-badge--pending { background: var(--cs-amber-dim); color: var(--cs-amber); }
+.cs-badge--info { background: var(--cs-violet-dim); color: var(--cs-violet); }
+
+/* Pulse dot for live/system-health states */
+.cs-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+.cs-pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  animation: cs-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.cs-pulse-dot--ok { background: var(--cs-teal); color: var(--cs-teal); }
+.cs-pulse-dot--warn { background: var(--cs-amber); color: var(--cs-amber); }
+.cs-pulse-dot--down { background: var(--cs-red); color: var(--cs-red); }
+
+@keyframes cs-ping {
+  0% { transform: scale(0.6); opacity: 0.8; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+/* Toggle switch, used in Profile / Admin */
+.cs-switch { position: relative; width: 42px; height: 24px; flex-shrink: 0; }
+.cs-switch input { opacity: 0; width: 0; height: 0; }
+.cs-switch-track {
+  position: absolute; inset: 0; border-radius: 999px;
+  background: var(--cs-border);
+  transition: background 0.2s ease;
+  cursor: pointer;
+}
+.cs-switch-track::after {
+  content: "";
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--cs-text-secondary);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s ease;
+}
+.cs-switch input:checked + .cs-switch-track { background: var(--cs-teal-dim); }
+.cs-switch input:checked + .cs-switch-track::after {
+  transform: translateX(18px);
+  background: var(--cs-teal);
+}
+
+/* Divider with mono label — used sparingly, only where content is truly sequential */
+.cs-divider-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--cs-text-muted);
+  font-family: var(--cs-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 28px 0 18px;
+}
+.cs-divider-label::before, .cs-divider-label::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: var(--cs-border);
+}
+
+/* Radial score gauge (conic-gradient), used by AI Prediction */
+.cs-gauge {
+  --pct: 0;
+  width: 148px;
+  height: 148px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  position: relative;
+  background: conic-gradient(var(--gauge-color, var(--cs-teal)) calc(var(--pct) * 1%), var(--cs-surface) 0);
+  animation: cs-gauge-in 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.cs-gauge::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border-radius: 50%;
+  background: var(--cs-surface-raised);
+}
+.cs-gauge-value {
+  position: relative;
+  font-family: var(--cs-font-display);
+  font-size: 28px;
+  font-weight: 700;
+}
+@keyframes cs-gauge-in {
+  from { --pct: 0; }
+}
+
+/* Scan-line loader, used on AI Prediction while "analyzing" */
+.cs-scanner {
+  position: relative;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--cs-border);
+  overflow: hidden;
+}
+.cs-scanner::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: -40%;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, var(--cs-violet), transparent);
+  animation: cs-scanner-run 1.3s ease-in-out infinite;
+}
+@keyframes cs-scanner-run {
+  0% { left: -40%; }
+  100% { left: 100%; }
+}
+
+/* Block chain nodes — Blockchain Verification page */
+.cs-chain {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  padding: 8px 4px 20px;
+}
+.cs-block {
+  flex-shrink: 0;
+  width: 96px;
+  height: 76px;
+  border-radius: var(--cs-radius-sm);
+  background: var(--cs-surface);
+  border: 1px solid var(--cs-border);
+  display: grid;
+  place-items: center;
+  font-family: var(--cs-font-mono);
+  font-size: 11px;
+  color: var(--cs-text-muted);
+  position: relative;
+  animation: cs-block-verify 0.5s ease both;
+}
+.cs-block--verified {
+  border-color: var(--cs-teal);
+  color: var(--cs-teal);
+  box-shadow: 0 0 0 3px var(--cs-teal-dim);
+}
+.cs-block-link {
+  width: 28px;
+  height: 2px;
+  background: var(--cs-border);
+  flex-shrink: 0;
+}
+.cs-block-link--verified { background: var(--cs-teal); }
+@keyframes cs-block-verify {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Checkmark draw-in, used for verified states */
+.cs-check {
+  width: 20px;
+  height: 20px;
+}
+.cs-check path {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  animation: cs-check-draw 0.5s ease 0.1s forwards;
+}
+@keyframes cs-check-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Utility layout */
+.cs-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.cs-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.cs-flex-between { display: flex; align-items: center; justify-content: space-between; }
+.cs-row { display: flex; align-items: center; gap: 10px; }
+.cs-muted { color: var(--cs-text-secondary); font-size: 13px; }
+.cs-mono { font-family: var(--cs-font-mono); }
+
+@media (max-width: 760px) {
+  .cs-grid-2, .cs-grid-3 { grid-template-columns: 1fr; }
+  .cs-page { padding: 32px 18px 72px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+}

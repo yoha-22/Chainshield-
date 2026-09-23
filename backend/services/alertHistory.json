@@ -1,0 +1,257 @@
+[
+  {
+    "channel": "sms",
+    "success": true,
+    "mode": "mock",
+    "to": "+917604941457",
+    "body": "ChainShield Alert! Suspicious Txn Detected. Amount: Rs.50000 Risk Score: 92% Txn ID: TEST123 Account frozen pending review.",
+    "note": "Simulated — live SMS pending Twilio DLT template registration for India (+91) numbers",
+    "timestamp": "2026-08-11T15:28:35.263Z"
+  },
+  {
+    "channel": "email",
+    "to": "yohalakshmi.422@gmail.com",
+    "mode": "live",
+    "success": true,
+    "messageId": "<4b3cd228-c913-f292-1577-e6e550675e48@gmail.com>",
+    "timestamp": "2026-08-11T15:28:40.487Z"
+  },
+  {
+    "channel": "sms",
+    "success": true,
+    "mode": "mock",
+    "to": "+917604941457",
+    "body": "ChainShield Alert! Suspicious Txn Detected. Amount: Rs.50000 Risk Score: 92% Txn ID: TEST123 Account frozen pending review.",
+    "note": "Simulated — live SMS pending Twilio DLT template registration for India (+91) numbers",
+    "timestamp": "2026-08-12T03:49:04.041Z"
+  },
+  {
+    "channel": "email",
+    "to": "yohalakshmi.422@gmail.com",
+    "mode": "live",
+    "success": true,
+    "messageId": "<5153638d-bf97-db4e-2dd5-5c09bdafefd9@gmail.com>",
+    "timestamp": "2026-08-12T03:49:09.241Z"
+  },
+  {
+    "channel": "sms",
+    "success": true,
+    "mode": "mock",
+    "to": "+919999999999",
+    "body": "ChainShield Alert! Suspicious Txn Detected. Amount: Rs.60000 Risk Score: 0% Txn ID: TEST999 Account frozen pending review.",
+    "note": "Simulated — live SMS pending Twilio DLT template registration for India (+91) numbers",
+    "timestamp": "2026-08-12T04:11:14.330Z"
+  },
+  {
+    "channel": "email",
+    "to": "youremail@gmail.com",
+    "mode": "live",
+    "success": true,
+    "messageId": "<5031c95c-be7a-40cf-4369-9e1e92cd67a7@gmail.com>",
+    "timestamp": "2026-08-12T04:11:24.573Z"
+  },
+  {
+    "channel": "sms",
+    "success": true,
+    "mode": "mock",
+    "to": "+919999999999",
+    "body": "ChainShield Alert! Suspicious Txn Detected. Amount: Rs.60000 Risk Score: 0% Txn ID: TEST1000 Account frozen pending review.",
+    "note": "Simulated — live SMS pending Twilio DLT template registration for India (+91) numbers",
+    "timestamp": "2026-08-12T04:19:14.107Z"
+  },
+  {
+    "channel": "email",
+    "to": "youremail@gmail.com",
+    "mode": "live",
+    "success": true,
+    "messageId": "<9c039f62-3dc9-1ff5-eed2-f7da34299f03@gmail.com>",
+    "timestamp": "2026-08-12T04:19:18.678Z"
+  },
+  {
+    "channel": "sms",
+    "success": true,
+    "mode": "mock",
+    "to": "+919999999999",
+    "body": "ChainShield Alert! Suspicious Txn Detected. Amount: Rs.60000 Risk Score: 0% Txn ID: TEST1001 Account frozen pending review.",
+    "note": "Simulated — live SMS pending Twilio DLT template registration for India (+91) numbers",
+    "timestamp": "2026-08-12T04:22:49.004Z"
+  },
+  {
+    "channel": "email",
+    "to": "youremail@gmail.com",
+    "mode": "live",
+    "success": true,
+    "messageId": "<54c7f1ab-4783-9046-5bd4-cb48e842064d@gmail.com>",
+    "timestamp": "2026-08-12T04:22:52.971Z"
+  },
+  {
+    "channel": "sms",
+    "success": true,
+    "mode": "mock",
+    "to": "",
+    "body": "ChainShield Alert! Suspicious Txn Detected. Amount: Rs.59999972 Risk Score: 0.5619% Txn ID: TXN1787732733316 Account frozen pending review.",
+    "note": "Simulated — live SMS pending Twilio DLT template registration for India (+91) numbers",
+    "timestamp": "2026-08-26T08:25:33.724Z"
+  },
+  {
+    "channel": "email",
+    "to": "",
+    "mode": "live",
+    "success": false,
+    "error": "Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5a478bee46e88-3283d8dc465sm6231106eec.24 - gsmtp",
+    "timestamp": "2026-08-26T08:25:36.866Z"
+  },
+  {
+    "channel": "sms",
+    "success": true,
+    "mode": "mock",
+    "to": "",
+    "body": "ChainShield Alert! Suspicious Txn Detected. Amount: Rs.4000 Risk Score: 0.5385% Txn ID: TXN1787732790319 Account frozen pending review.",
+    "note": "Simulated — live SMS pending Twilio DLT template registration for India (+91) numbers",
+    "timestamp": "2026-08-26T08:26:30.438Z"
+  },
+  {
+    "channel": "email",
+    "to": "yoha.kr22@gmail.com",
+    "mode": "live",
+    "success": false,
+    "error": "Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5a478bee46e88-3283d769d81sm6604266eec.13 - gsmtp",
+    "timestamp": "2026-08-26T08:26:33.369Z"
+  },
+  {
+    "channel": "sms",
+    "success": true,
+    "mode": "mock",
+    "to": "",
+    "body": "ChainShield Alert! Suspicious Txn Detected. Amount: Rs.30000 Risk Score: 0.0003% Txn ID: TXN1787759345793 Account frozen pending review.",
+    "note": "Simulated — live SMS pending Twilio DLT template registration for India (+91) numbers",
+    "timestamp": "2026-08-26T15:49:06.734Z"
+  },
+  {
+    "channel": "email",
+    "to": "",
+    "mode": "live",
+    "success": false,
+    "error": "Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials a92af1059eb24-141a905c18bsm9755147c88.14 - gsmtp",
+    "timestamp": "2026-08-26T15:49:10.193Z"
+  },
+  {
+    "channel": "sms",
+    "success": true,
+    "mode": "mock",
+    "to": "",
+    "body": "ChainShield Alert! Suspicious Txn Detected. Amount: Rs.600000 Risk Score: 0.0003% Txn ID: TXN1787759734681 Account frozen pending review.",
+    "note": "Simulated — live SMS pending Twilio DLT template registration for India (+91) numbers",
+    "timestamp": "2026-08-26T15:55:34.858Z"
+  },
+  {
+    "channel": "email",
+    "to": "",
+    "mode": "live",
+    "success": false,
+    "error": "Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5a478bee46e88-3283d60d25esm11422148eec.4 - gsmtp",
+    "timestamp": "2026-08-26T15:55:38.189Z"
+  },
+  {
+    "channel": "sms",
+    "success": true,
+    "mode": "mock",
+    "to": "",
+    "body": "ChainShield Alert! Suspicious Txn Detected. Amount: Rs.60000 Risk Score: 0.5092% Txn ID: TXN1787762296270 Account frozen pending review.",
+    "note": "Simulated — live SMS pending Twilio DLT template registration for India (+91) numbers",
+    "timestamp": "2026-08-26T16:38:18.108Z"
+  },
+  {
+    "channel": "email",
+    "to": "",
+    "mode": "live",
+    "success": false,
+    "error": "Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials a92af1059eb24-141a8f47d8csm9036017c88.8 - gsmtp",
+    "timestamp": "2026-08-26T16:38:21.515Z"
+  },
+  {
+    "channel": "sms",
+    "success": true,
+    "mode": "mock",
+    "to": "",
+    "body": "ChainShield Alert! Suspicious Txn Detected. Amount: Rs.60000 Risk Score: 0.0125% Txn ID: TXN1787762458410 Account frozen pending review.",
+    "note": "Simulated — live SMS pending Twilio DLT template registration for India (+91) numbers",
+    "timestamp": "2026-08-26T16:40:58.549Z"
+  },
+  {
+    "channel": "email",
+    "to": "",
+    "mode": "live",
+    "success": false,
+    "error": "Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5a478bee46e88-3283d886256sm11397192eec.16 - gsmtp",
+    "timestamp": "2026-08-26T16:41:01.256Z"
+  },
+  {
+    "channel": "sms",
+    "success": true,
+    "mode": "mock",
+    "to": "",
+    "body": "ChainShield Alert! Suspicious Txn Detected. Amount: Rs.700000000 Risk Score: 0.0125% Txn ID: TXN1787762474628 Account frozen pending review.",
+    "note": "Simulated — live SMS pending Twilio DLT template registration for India (+91) numbers",
+    "timestamp": "2026-08-26T16:41:14.865Z"
+  },
+  {
+    "channel": "email",
+    "to": "",
+    "mode": "live",
+    "success": false,
+    "error": "Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5a478bee46e88-3283d60c291sm16961875eec.6 - gsmtp",
+    "timestamp": "2026-08-26T16:41:17.807Z"
+  },
+  {
+    "channel": "sms",
+    "success": true,
+    "mode": "mock",
+    "to": "",
+    "body": "ChainShield Alert! Suspicious Txn Detected. Amount: Rs.70000 Risk Score: 0.321% Txn ID: TXN1787762591190 Account frozen pending review.",
+    "note": "Simulated — live SMS pending Twilio DLT template registration for India (+91) numbers",
+    "timestamp": "2026-08-26T16:43:11.421Z"
+  },
+  {
+    "channel": "email",
+    "to": "",
+    "mode": "live",
+    "success": false,
+    "error": "Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials a92af1059eb24-141a8f20095sm9298481c88.6 - gsmtp",
+    "timestamp": "2026-08-26T16:43:14.478Z"
+  },
+  {
+    "channel": "sms",
+    "success": true,
+    "mode": "mock",
+    "to": "",
+    "body": "ChainShield Alert! Suspicious Txn Detected. Amount: Rs.499999 Risk Score: 0.0125% Txn ID: TXN1787762968268 Account frozen pending review.",
+    "note": "Simulated — live SMS pending Twilio DLT template registration for India (+91) numbers",
+    "timestamp": "2026-08-26T16:49:28.503Z"
+  },
+  {
+    "channel": "email",
+    "to": "",
+    "mode": "live",
+    "success": false,
+    "error": "Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5a478bee46e88-3283fa89e8fsm14394660eec.8 - gsmtp",
+    "timestamp": "2026-08-26T16:49:31.890Z"
+  },
+  {
+    "channel": "sms",
+    "success": true,
+    "mode": "mock",
+    "to": "",
+    "body": "ChainShield Alert! Suspicious Txn Detected. Amount: Rs.4666 Risk Score: 0.9722% Txn ID: TXN1787804261710 Account frozen pending review.",
+    "note": "Simulated — live SMS pending Twilio DLT template registration for India (+91) numbers",
+    "timestamp": "2026-08-27T04:17:44.602Z"
+  },
+  {
+    "channel": "email",
+    "to": "",
+    "mode": "live",
+    "success": false,
+    "error": "Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5a478bee46e88-3283d60c291sm21948922eec.6 - gsmtp",
+    "timestamp": "2026-08-27T04:17:53.009Z"
+  }
+]
